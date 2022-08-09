@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { PlusCircle, Trash } from "phosphor-react";
+import { ClipboardText, PlusCircle, Trash } from "phosphor-react";
 import styles from './TaskList.module.css';
 
 type Task = {
@@ -11,6 +11,7 @@ type Task = {
 export function TaskList() {
     const [tasks, setTasks] = useState<Task[]>([]);
     const [newTaskTitle, setNewTaskTitle] = useState('');
+    const [completedTasksCount, setCompletedTasksCount] = useState(0);
 
     function handleCreateNewTask() {
         if (newTaskTitle.trim() === '') {
@@ -22,9 +23,27 @@ export function TaskList() {
               isDone: false
             }]);
           }
-          console.log(tasks);
+          setNewTaskTitle('');
     }
-    
+
+    function handleToggleTaskStatus(id: number) {
+        setTasks(tasks.map(task => {
+            if (task.id === id) {
+                task.isDone = !task.isDone;
+                setCompletedTasksCount(task.isDone ? completedTasksCount + 1 : completedTasksCount - 1);
+            }
+            return task;
+        }));
+    }
+
+    function handleDeleteTask(id: number) {
+        tasks.map(task => {
+            if (task.id === id) {
+                setCompletedTasksCount(task.isDone ? completedTasksCount - 1 : completedTasksCount);
+            }
+        });
+        setTasks(tasks.filter(task => task.id !== id));
+    }
 
     return(
         <>
@@ -48,38 +67,44 @@ export function TaskList() {
             <main className={styles.mainContainer}>
                 <div className={styles.mainHeader}>
                     <p>Tarefas criadas
-                        <span>5</span>
+                        <span>{tasks.length}</span>
                     </p>
                     <p>Concluídas
-                        <span>{`2 de 5`}</span>
+                        <span>{!tasks.length ? 0 : `${completedTasksCount} de ${tasks.length}`}</span>
                     </p>
                 </div>
-                <ul className={styles.listTasks}>
-                    <li>
-                        <div>
-                            {/* <label className={styles.checkboxContainer}>
-                                <input
-                                    type="checkbox"
-                                    readOnly
-                                    // checked={task.isDone}
-                                    onClick={() => { }}
-                                />
-                                <span className={styles.teste}></span>
-                            </label> */}
-
-{/* ref: https://codepen.io/imomer/pen/qoLVZg */}
-<label className={styles.containerCheckbox}>
-  <input type="checkbox" />
-  <span className={styles.checkmark}></span>
-</label>
-
-                            <p>Essa é uma tarefa muito legal</p>
+                <ul className={tasks.length ? styles.listTasks : styles.listTaskEmpty}>
+                    {!tasks.length ? (
+                        <div className={styles.emptyListContainer}>
+                            <ClipboardText size={56}/>
+                            <strong>Você ainda não tem tarefas cadastradas</strong>
+                            <p>Crie tarefas e organize seus itens a fazer</p>
                         </div>
-
-                        <button className={styles.deleteTask} type="button">
-                            <Trash size={16} />
-                        </button>
-                    </li>
+                    ) : (
+                        tasks.map(task => (
+                            <li key={task.id}>
+                                <div className={task.isDone ? styles.taskCompleted : ''}>
+                                    <label className={styles.containerCheckbox}>
+                                        <input
+                                            type="checkbox"
+                                            checked={task.isDone}
+                                            onClick={() => handleToggleTaskStatus(task.id)}
+                                        />
+                                        <span className={styles.checkmark}></span>
+                                    </label>
+                                    <p>{task.title}</p>
+                                </div>
+                                <button 
+                                    className={styles.deleteTask} 
+                                    type="button"
+                                    onClick={() => handleDeleteTask(task.id)}
+                                >
+                                    <Trash size={18} />
+                                </button>
+                            </li>
+                        ))
+    
+                    )}
                 </ul>
             </main>
             

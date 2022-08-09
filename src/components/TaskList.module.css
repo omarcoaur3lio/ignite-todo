@@ -69,6 +69,30 @@
     list-style: none;
 }
 
+.listTaskEmpty {
+    border-top: 1px solid #333;
+    border-radius: 0.5rem;
+    height: 100px;
+}
+
+.emptyListContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--gray-300);
+    padding: 4rem 0;
+}
+
+
+.emptyListContainer strong {
+    margin-top: 1rem;
+}
+
+.taskCompleted p {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
 .listTasks li {
     background-color: var(--gray-500);
     border: 1px solid var(--gray-400);
@@ -102,7 +126,7 @@
     padding-left: 35px;
     margin-bottom: 12px;
     cursor: pointer;
-    font-size: 22px;
+    font-size: 1rem;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -118,21 +142,25 @@
 
 .containerCheckbox .checkmark {
     position: absolute;
-    top: 0;
+    top: -0.1875rem;
     left: 0;
-    height: 25px;
-    width: 25px;
+    height: 1.2rem;
+    width: 1.2rem;
+    border: 2px solid var(--blue);
     border-radius: 1rem;
-    background-color: #eee;
+    background-color: transparent;
+
+    transition: background-color 0.2s;
 }
 
 .containerCheckbox:hover input ~ .checkmark {
-    background-color: #ccc;
+    background-color: var(--blue-dark);
 }
 
 
 .containerCheckbox input:checked ~ .checkmark {
-    background-color: #2196F3;
+    border: 2px solid var(--purple);
+    background-color: var(--purple);
 }
 
 
@@ -148,12 +176,12 @@
 
 
 .containerCheckbox .checkmark:after {
-    left: 9px;
-    top: 5px;
-    width: 5px;
-    height: 10px;
-    border: solid white;
-    border-width: 0 3px 3px 0;
+    left: 0.23rem;
+    top: 0.1rem;
+    width: 0.3125rem;
+    height: 0.5rem;
+    border: solid var(--gray-100);
+    border-width: 0 2px 2px 0;
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
