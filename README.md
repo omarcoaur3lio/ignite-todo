@@ -23,6 +23,8 @@ Este projeto foi desenvolvido como desafio do módulo um do programa de treiname
 <br>
 Nesta aplicação é possível adicionar e remover tarefas a serem realizadas, bem como marcá-las como concluídas. O objetivo principal desse desafio foi solidificar os conceitos de componente,  estado e propriedade do `ReactJS`.
 
+<br>
+
 ## :camera: Preview 
 <div align="center">
   <img src=".github/cover.png" width=80% />
