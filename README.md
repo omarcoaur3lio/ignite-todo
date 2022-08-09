@@ -19,7 +19,7 @@
 <br>
 
 ## :speech_balloon: Sobre
-Este projeto foi desenvolvido como um desafio do módulo um do programa de treinamento Ignite da [Rocketseat](www.rocketseat.com.br).
+Este projeto foi desenvolvido como desafio do módulo um do programa de treinamento Ignite da [Rocketseat](www.rocketseat.com.br).
 <br>
 Nesta aplicação é possível adicionar e remover tarefas a serem realizadas, bem como marcá-las como concluídas. O objetivo principal desse desafio foi solidificar os conceitos de componente,  estado e propriedade do `ReactJS`.
 
